@@ -19,10 +19,6 @@ import java.util.List;
 public class CustomerDaoImpl implements CustomerDao {
 
 
-    @Override
-    public CustomerDto searchCustomer(String id) {
-        return null;
-    }
 
     @Override
     public boolean save(Customer entity) throws SQLException, ClassNotFoundException {

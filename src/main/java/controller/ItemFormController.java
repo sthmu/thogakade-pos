@@ -1,10 +1,13 @@
 package controller;
 
+import bo.BoFactory;
+import bo.custom.ItemBo;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+import dao.util.BoType;
 import dto.ItemDto;
 import dto.tm.ItemTm;
 import javafx.beans.value.ChangeListener;
@@ -14,6 +17,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
@@ -24,6 +28,7 @@ import dao.custom.impl.ItemDaoImpl;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -40,7 +45,7 @@ public class ItemFormController {
     public TreeTableColumn colUnitPrice;
     public TreeTableColumn colQty;
     public TreeTableColumn colOption;
-
+private ItemBo itemBo=BoFactory.getInstance().getBo(BoType.ITEM);
     private ItemDao itemDao = new ItemDaoImpl();
 
     public void initialize(){
@@ -108,7 +113,26 @@ public class ItemFormController {
     }
 
     public void saveButtonOnAction(ActionEvent actionEvent) {
+        ItemDto itemdto=new ItemDto(
+                txtCode.getText(),
+                txtDescription.getText(),
+                Double.parseDouble(txtUnitPrice.getText()),
+                Integer.parseInt(txtQty.getText()));
 
+        try {
+            boolean isSaved= itemBo.saveItem(itemdto);
+            if(isSaved){
+                new Alert(Alert.AlertType.INFORMATION,"Successfully Saved");
+            }
+        }
+        catch(SQLIntegrityConstraintViolationException ezx){
+            new Alert(Alert.AlertType.ERROR,"duplicate entry");
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void updateButtonOnAction(ActionEvent actionEvent) {
