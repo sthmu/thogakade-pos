@@ -45,7 +45,13 @@ public class ItemDaoImpl implements ItemDao {
 
     @Override
     public boolean delete(String code) throws SQLException, ClassNotFoundException {
-        return false;
+        Session session=HibernateUtil.getSession();
+        Transaction transaction= session.beginTransaction();
+        session.delete(session.find(Item.class,code));
+        transaction.commit();
+        session.close();
+        return true;
+
     }
 
     @Override

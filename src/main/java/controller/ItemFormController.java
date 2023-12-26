@@ -104,7 +104,7 @@ private ItemBo itemBo=BoFactory.getInstance().getBo(BoType.ITEM);
                 );
 
                 btn.setOnAction(actionEvent -> {
-//                    (c.getId());
+                    deleteItem(dto);
                 });
 
                 tmList.add(tm);
@@ -116,6 +116,34 @@ private ItemBo itemBo=BoFactory.getInstance().getBo(BoType.ITEM);
             throw new RuntimeException(e);
         }
     }
+
+    private void deleteItem(ItemDto dto){
+        try {
+            boolean isDeleted= itemBo.deleteItem(dto.getCode());
+            if(isDeleted){
+                new Alert(Alert.AlertType.INFORMATION,"deleted successfully").show();
+                loadItems();
+                clearFields();
+
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    private void clearFields() {
+        txtCode.setEditable(true);
+        txtCode.clear();
+        txtDescription.clear();
+        txtUnitPrice.clear();
+        txtQty.clear();
+        txtSearch.clear();
+
+    }
+
 
     public void backButtonOnAction(ActionEvent actionEvent) {
         Stage stage = (Stage) pane.getScene().getWindow();
@@ -138,11 +166,11 @@ private ItemBo itemBo=BoFactory.getInstance().getBo(BoType.ITEM);
         try {
             boolean isSaved= itemBo.saveItem(itemdto);
             if(isSaved){
-                new Alert(Alert.AlertType.INFORMATION,"Successfully Saved");
+                new Alert(Alert.AlertType.INFORMATION,"Successfully Saved").show();
             }
         }
         catch(SQLIntegrityConstraintViolationException ezx){
-            new Alert(Alert.AlertType.ERROR,"duplicate entry");
+            new Alert(Alert.AlertType.ERROR,"duplicate entry").show();
         }
         catch (SQLException e) {
             throw new RuntimeException(e);
@@ -162,9 +190,9 @@ private ItemBo itemBo=BoFactory.getInstance().getBo(BoType.ITEM);
         try {
             boolean isUpdated=itemBo.updateItem(itemDto);
             if(isUpdated){
-                new Alert(Alert.AlertType.INFORMATION,"Successfully Updated");
+                new Alert(Alert.AlertType.INFORMATION,"Successfully Updated").show();
             }else{
-                new Alert(Alert.AlertType.ERROR,"Error Accoured while updating");
+                new Alert(Alert.AlertType.ERROR,"Error Accoured while updating").show();
 
             }
         } catch (SQLException e) {
@@ -174,5 +202,9 @@ private ItemBo itemBo=BoFactory.getInstance().getBo(BoType.ITEM);
         }
         loadItems();
 
+    }
+
+    public void clearFieldsOnAction(ActionEvent actionEvent) {
+        clearFields();
     }
 }

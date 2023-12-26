@@ -16,6 +16,11 @@ public class ItemBoimpl implements ItemBo {
 private ItemDao itemDao= DaoFactory.getInstance().getDao(DaoType.ITEM);
 
     @Override
+    public boolean deleteItem(String code) throws SQLException, ClassNotFoundException {
+        return itemDao.delete(code);
+    }
+
+    @Override
     public boolean updateItem(ItemDto itemDto) throws SQLException, ClassNotFoundException {
         return itemDao.update(
             new Item(itemDto.getCode(),itemDto.getDesc(),itemDto.getUnitPrice(),itemDto.getQty())
