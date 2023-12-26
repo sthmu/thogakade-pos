@@ -8,5 +8,6 @@ import java.sql.SQLException;
 public interface ItemBo extends SuperBo {
 
     public boolean saveItem(ItemDto itemDto) throws SQLException, ClassNotFoundException;
+    public boolean updateItem(ItemDto itemDto) throws SQLException, ClassNotFoundException;
 
 }

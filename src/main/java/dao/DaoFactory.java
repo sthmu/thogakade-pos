@@ -18,6 +18,7 @@ public class DaoFactory {
         switch (type){
             case CUSTOMER: return(T) new CustomerDaoImpl();
             case ITEM:return(T) new ItemDaoImpl();
+
         }
         return null;
     }

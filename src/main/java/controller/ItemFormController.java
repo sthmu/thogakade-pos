@@ -69,7 +69,23 @@ private ItemBo itemBo=BoFactory.getInstance().getBo(BoType.ITEM);
                 });
             }
         });
+
+        tblItem.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
+            setData(newValue.getValue());
+        });
     }
+
+    private void setData(ItemTm newValue) {
+        if (newValue != null) {
+            txtCode.setEditable(false);
+            txtCode.setText(newValue.getCode());
+            txtDescription.setText(newValue.getDesc());
+            txtUnitPrice.setText(String.valueOf(newValue.getUnitPrice()));
+            txtQty.setText(String.valueOf(newValue.getQty()));
+
+        }
+    }
+
 
     private void loadItems() {
         ObservableList<ItemTm> tmList = FXCollections.observableArrayList();
@@ -133,9 +149,30 @@ private ItemBo itemBo=BoFactory.getInstance().getBo(BoType.ITEM);
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
+
+        loadItems();
     }
 
     public void updateButtonOnAction(ActionEvent actionEvent) {
+
+        ItemDto itemDto=new ItemDto(
+          txtCode.getText(),txtDescription.getText(),Double.parseDouble(txtUnitPrice.getText()),Integer.parseInt(txtQty.getText())
+        );
+
+        try {
+            boolean isUpdated=itemBo.updateItem(itemDto);
+            if(isUpdated){
+                new Alert(Alert.AlertType.INFORMATION,"Successfully Updated");
+            }else{
+                new Alert(Alert.AlertType.ERROR,"Error Accoured while updating");
+
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        loadItems();
 
     }
 }
