@@ -1,16 +1,15 @@
 package dao.custom.impl;
 
+import dao.custom.OrderDao;
 import dao.util.HibernateUtil;
 import db.DBConnection;
 import dto.OrderDetailDto;
 import dto.OrderDto;
-import dao.custom.OrderDetailDao;
-import dao.custom.OrderDao;
 import entity.*;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,63 +17,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrderDaoImpl implements OrderDao {
-    private OrderDetailDao orderDetailDao = new OrderDetailDaoImpl();
     @Override
     public boolean save(OrderDto dto) throws SQLException, ClassNotFoundException {
-        /*Connection connection = null;
-        try {
-            connection = DBConnection.getInstance().getConnection();
-            connection.setAutoCommit(false);
-            String sql = "INSERT INTO orders VALUES(?,?,?)";
-            PreparedStatement pstm = connection.prepareStatement(sql);
-            pstm.setString(1, dto.getOrderId());
-            pstm.setString(2, dto.getDate());
-            pstm.setString(3, dto.getCustId());
 
-            if (pstm.executeUpdate() > 0) {
-
-                boolean isDetailsSaved = orderDetailDao.saveOrderDetails(dto.getList());
-                if (isDetailsSaved) {
-                    connection.commit();
-                    return true;
-                }
-            }
-        }catch(SQLException | ClassNotFoundException e){
-            e.printStackTrace();
-            connection.rollback();
-        }finally {
-            connection.setAutoCommit(true);
-        }
-        return false;*/
         Session session = HibernateUtil.getSession();
         Transaction transaction = session.beginTransaction();
-        Orders order = new Orders(
+        OrderEntity orderEntity = new OrderEntity(
                 dto.getOrderId(),
                 dto.getDate()
         );
-        order.setCustomer(session.find(Customer.class,dto.getCustId()));
-        session.save(order);
+        orderEntity.setCustomer(session.find(Customer.class,dto.getCustId()));
+        session.save(orderEntity);
 
         List<OrderDetailDto> list = dto.getList(); //dto type
 
         for (OrderDetailDto detailDto:list) {
-            OrderDetail orderDetail = new OrderDetail(
-                    new OrderDetailsKey(detailDto.getOrderId(), detailDto.getItemCode()),
-                    session.find(Item.class, detailDto.getItemCode()),
-                    order,
+            OrderDetail orderDetail=new OrderDetail(
+                    new OrderDetailsKey(detailDto.getItemCode(),detailDto.getOrderId()),
+                    session.find(Item.class,detailDto.getItemCode()),
+                    orderEntity,
                     detailDto.getQty(),
                     detailDto.getUnitPrice()
             );
-            session.save(orderDetail);
         }
-
         transaction.commit();
         session.close();
         return true;
     }
 
     @Override
-    public boolean update(OrderDto entity) throws SQLException, ClassNotFoundException {
+    public boolean update(OrderDto dto) throws SQLException, ClassNotFoundException {
         return false;
     }
 
@@ -85,7 +57,24 @@ public class OrderDaoImpl implements OrderDao {
 
     @Override
     public List<OrderDto> getAll() throws SQLException, ClassNotFoundException {
-        return null;
+        Session session=HibernateUtil.getSession();
+        Query query=session.createQuery("FROM OrderEntity",OrderEntity.class);
+        List<OrderEntity> orderEntityList = query.getResultList();
+
+
+
+
+        List<OrderDto> dtoList= new ArrayList<>();
+        for(OrderEntity orderEntity : orderEntityList){
+             List<OrderDetailDto> detailsDtoList=new ArrayList<>();
+            for(OrderDetail orderDetail: orderEntity.getOrderDetails()){
+                detailsDtoList.add(new OrderDetailDto(orderDetail.getOrderEntity().getOrderId(),orderDetail.getItem().getCode(),orderDetail.getQty(),orderDetail.getUnitPrice()));
+
+            }
+            dtoList.add(new OrderDto(orderEntity.getOrderId(), orderEntity.getDate(), orderEntity.getCustomer().getId(),detailsDtoList));
+        }
+        session.close();
+        return dtoList;
     }
 
     @Override

@@ -1,6 +1,9 @@
 package entity;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -21,7 +24,7 @@ public class Customer {
     private double salary;
 
     @OneToMany(mappedBy = "customer")
-    private List<Orders> orders = new ArrayList<>();
+    private List<OrderEntity> orderEntities = new ArrayList<>();
 
     public Customer(String id, String name, String address, double salary) {
         this.id = id;

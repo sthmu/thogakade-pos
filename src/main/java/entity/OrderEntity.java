@@ -7,23 +7,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
+@AllArgsConstructor
 @Setter
 @Getter
 @ToString
 @Entity
-public class Orders {
+@Table(name = "order")
+public class OrderEntity {
     @Id
     private String orderId;
     private String date;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id")
+    @JoinColumn(name = "customerId")
     private Customer customer;
 
-    @OneToMany(mappedBy = "orders")
+    @OneToMany(mappedBy = "orderEntity")
     private List<OrderDetail> orderDetails = new ArrayList<>();
 
-    public Orders(String orderId, String date) {
+    public OrderEntity(String orderId, String date , Customer customer)  {
+        this.orderId = orderId;
+        this.date = date;
+        this.customer=customer;
+    }
+    public OrderEntity(String orderId, String date){
         this.orderId = orderId;
         this.date = date;
     }

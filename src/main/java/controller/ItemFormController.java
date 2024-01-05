@@ -7,6 +7,8 @@ import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+import dao.custom.ItemDao;
+import dao.custom.impl.ItemDaoImpl;
 import dao.util.BoType;
 import dto.ItemDto;
 import dto.tm.ItemTm;
@@ -23,8 +25,6 @@ import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import dao.custom.ItemDao;
-import dao.custom.impl.ItemDaoImpl;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -155,7 +155,6 @@ private ItemBo itemBo=BoFactory.getInstance().getBo(BoType.ITEM);
             throw new RuntimeException(e);
         }
     }
-
     public void saveButtonOnAction(ActionEvent actionEvent) {
         ItemDto itemdto=new ItemDto(
                 txtCode.getText(),

@@ -62,4 +62,14 @@ public class DashboardFormController {
             e.printStackTrace();
         }
     }
+
+    public void ordersButtonOnAction(ActionEvent actionEvent) {
+        Stage stage=(Stage)pane.getScene().getWindow();
+        try {
+            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/Orders.fxml"))));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

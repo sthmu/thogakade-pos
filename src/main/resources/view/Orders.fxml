@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<BorderPane fx:id="pane" minWidth="-Infinity" prefHeight="400.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.OrdersController">
+   <center>
+      <GridPane>
+         <columnConstraints>
+            <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" />
+            <ColumnConstraints hgrow="NEVER" maxWidth="119.00000000000006" minWidth="0.0" prefWidth="23.66668701171875" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="128.6666488647461" minHeight="0.0" prefHeight="48.66666030883789" valignment="TOP" vgrow="NEVER" />
+            <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <ScrollPane fitToWidth="true" minViewportHeight="69.0" minViewportWidth="80.0" prefViewportHeight="80.0" prefViewportWidth="80.0" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+               <content>
+                  <TableView fx:id="tblOrderList">
+                    <columns>
+                      <TableColumn fx:id="ColOrderId" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="-1.0" text="Order ID" />
+                      <TableColumn fx:id="ColCustomerId" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="Customer Name" />
+                        <TableColumn fx:id="ColAmount" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="Amount" />
+                        <TableColumn fx:id="ColDate" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="Address" />
+                    </columns>
+                  </TableView>
+               </content></ScrollPane>
+         </children>
+      </GridPane>
+   </center>
+   <left>
+      <GridPane prefHeight="400.0" prefWidth="135.0" BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="146.6666774749756" minHeight="10.0" prefHeight="66.00000127156576" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="222.6666603088379" minHeight="10.0" prefHeight="35.333318074544266" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="222.6666603088379" minHeight="10.0" prefHeight="35.333318074544266" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="214.66667556762695" minHeight="10.0" prefHeight="41.33332316080728" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="214.66667556762695" minHeight="10.0" prefHeight="41.33332316080728" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="152.66664123535156" minHeight="10.0" prefHeight="52.00001017252603" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="152.66664123535156" minHeight="10.0" prefHeight="51.33335876464841" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="110.33331807454425" minHeight="10.0" prefHeight="75.99997456868488" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="62.00001017252606" minHeight="10.0" prefHeight="39.66663614908856" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="44.33336385091144" minHeight="10.0" prefHeight="44.33336385091144" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <JFXButton onAction="#pendingOrdersdBtnOnAction" prefHeight="25.0" prefWidth="107.0" text="Pending Orders" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+            <JFXButton onAction="#completedOrdersBtnOnAction" text="Completed" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
+               <GridPane.margin>
+                  <Insets top="20.0" />
+               </GridPane.margin>
+            </JFXButton>
+            <JFXButton contentDisplay="GRAPHIC_ONLY" onAction="#backButtonOnAction" prefHeight="26.0" prefWidth="20.0">
+               <graphic>
+                  <ImageView fitHeight="26.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                         <Image url="@../img/bck.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+         </children>
+      </GridPane>
+   </left>
+</BorderPane>

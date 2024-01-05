@@ -16,13 +16,13 @@ public class OrderDetail {
 
     @ManyToOne
     @MapsId("itemCode")
-    @JoinColumn(name = "item_code")
+    @JoinColumn(name = "itemCode")
     Item item;
 
     @ManyToOne
     @MapsId("orderId")
-    @JoinColumn(name = "order_id")
-    Orders orders;
+    @JoinColumn(name = "orderId")
+    OrderEntity orderEntity;
 
     private int qty;
     private double unitPrice;
