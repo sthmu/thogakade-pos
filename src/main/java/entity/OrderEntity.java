@@ -10,16 +10,27 @@ import java.util.List;
 @AllArgsConstructor
 @Setter
 @Getter
-@ToString
+
 @Entity
-@Table(name = "order")
+@Table(name = "orderEntity")
 public class OrderEntity {
+
+
+    @Override
+    public String toString() {
+        return "OrderEntity{" +
+                "orderId='" + orderId + '\'' +
+                ", date='" + date + '\'' +
+                ", Customer'"+customer.getName()+ '\''+
+                '}';
+    }
+
     @Id
     private String orderId;
     private String date;
 
     @ManyToOne
-    @JoinColumn(name = "customerId")
+    @JoinColumn(name = "customer_Id")
     private Customer customer;
 
     @OneToMany(mappedBy = "orderEntity")

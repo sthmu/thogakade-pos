@@ -33,7 +33,7 @@ public class OrdersController implements Initializable {
     public BorderPane pane;
     public TableColumn ColDate;
 
-    private OrderBo orderBo= BoFactory.getInstance().getBo(BoType.ORDER);
+    private final OrderBo orderBo= BoFactory.getInstance().getBo(BoType.ORDER);
 
     private List<OrderDto> listOfOrders;
 
@@ -65,6 +65,7 @@ public class OrdersController implements Initializable {
             for(OrderDetailDto detailDto:orderDto.getList()){
                 amount+= detailDto.getQty()*detailDto.getUnitPrice();
             }
+            //System.out.println(orderDto.getOrderId()+"\n"+orderDto.getCustId()+"\n"+orderDto.getDate()+"\n"+amount);
             TmOrderList.add(new OrderInfoTm(orderDto.getOrderId(),orderDto.getCustId(),orderDto.getDate(),amount));
         }
         tblOrderList.setItems(TmOrderList);

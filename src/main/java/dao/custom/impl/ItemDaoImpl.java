@@ -1,11 +1,10 @@
 package dao.custom.impl;
 
+import dao.custom.ItemDao;
 import dao.util.HibernateUtil;
 import db.DBConnection;
 import dto.CustomerDto;
 import dto.ItemDto;
-import dao.custom.ItemDao;
-import entity.Customer;
 import entity.Item;
 import org.hibernate.Session;
 import org.hibernate.Transaction;

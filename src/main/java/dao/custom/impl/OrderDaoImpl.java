@@ -71,6 +71,7 @@ public class OrderDaoImpl implements OrderDao {
                 detailsDtoList.add(new OrderDetailDto(orderDetail.getOrderEntity().getOrderId(),orderDetail.getItem().getCode(),orderDetail.getQty(),orderDetail.getUnitPrice()));
 
             }
+            System.out.println(orderEntity);
             dtoList.add(new OrderDto(orderEntity.getOrderId(), orderEntity.getDate(), orderEntity.getCustomer().getId(),detailsDtoList));
         }
         session.close();

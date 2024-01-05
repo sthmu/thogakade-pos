@@ -2,7 +2,6 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
@@ -12,7 +11,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<BorderPane fx:id="pane" minWidth="-Infinity" prefHeight="400.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.OrdersController">
+<BorderPane fx:id="pane" minWidth="-Infinity" prefHeight="449.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.OrdersController">
    <center>
       <GridPane>
          <columnConstraints>
@@ -25,17 +24,14 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <ScrollPane fitToWidth="true" minViewportHeight="69.0" minViewportWidth="80.0" prefViewportHeight="80.0" prefViewportWidth="80.0" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-               <content>
-                  <TableView fx:id="tblOrderList">
-                    <columns>
-                      <TableColumn fx:id="ColOrderId" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="-1.0" text="Order ID" />
-                      <TableColumn fx:id="ColCustomerId" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="Customer Name" />
-                        <TableColumn fx:id="ColAmount" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="Amount" />
-                        <TableColumn fx:id="ColDate" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" text="Address" />
-                    </columns>
-                  </TableView>
-               </content></ScrollPane>
+            <TableView fx:id="tblOrderList" minHeight="-Infinity" prefHeight="412.0" prefWidth="574.0" GridPane.rowIndex="1">
+              <columns>
+                <TableColumn fx:id="ColOrderId" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="100.0" text="Order ID" />
+                <TableColumn fx:id="ColCustomerId" maxWidth="-1.0" minWidth="200.0" prefWidth="200.0" text="Customer Name" />
+                  <TableColumn fx:id="ColAmount" maxWidth="-1.0" minWidth="100.0" prefWidth="100.0" text="Amount" />
+                  <TableColumn fx:id="ColDate" maxWidth="-1.0" minWidth="175.0" prefWidth="200.0" text="Address" />
+              </columns>
+            </TableView>
          </children>
       </GridPane>
    </center>

@@ -2,9 +2,10 @@ package controller;
 
 import bo.BoFactory;
 import bo.custom.CustomerBo;
-import bo.custom.impl.CustomerBoImpl;
 import dao.util.BoType;
 import db.DBConnection;
+import dto.CustomerDto;
+import dto.tm.CustomerTm;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,18 +15,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import dto.CustomerDto;
-import dto.tm.CustomerTm;
-import dao.custom.CustomerDao;
-import dao.custom.impl.CustomerDaoImpl;
 import net.sf.jasperreports.engine.*;
-import net.sf.jasperreports.engine.design.JRDesignQuery;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
 import java.io.IOException;
-import java.sql.*;
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
 
@@ -61,7 +58,7 @@ public class CustomerFormController {
     @FXML
     private TextField txtSalary;
 
-    private CustomerBo customerBo = BoFactory.getInstance().getBo(BoType.CUSTOMER);
+    private final CustomerBo customerBo = BoFactory.getInstance().getBo(BoType.CUSTOMER);
 
     public void initialize(){
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
